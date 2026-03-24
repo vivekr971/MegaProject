@@ -16,6 +16,7 @@ class Home(db.Model):
     subject = db.Column(db.String(80))
     
 
+# @app.route("/" , methods=["GET","POST"])
 
 @app.route("/" , methods=["GET","POST"])
 def index():
