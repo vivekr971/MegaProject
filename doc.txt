@@ -1,0 +1,56 @@
+SQL QUERIES:
+mysql -u root -p
+USE serviceapp;
+
+
+
+
+
+
+
+
+
+
+
+You have:
+
+Customer API → localhost:6001 (Flask app)
+Order API → localhost:6002 (another Flask app)
+
+BUT both connect to:
+
+mysql://localhost:3306/serviceapp
+SAME MySQL database ✅
+
+As long as DB is same:
+3306 (MySQL)
+👉 ✅ ForeignKey WILL WORK
+
+If interviewer asks:
+
+👉 “How do you link data across services?”
+
+Answer:
+
+“We use API-level validation instead of database foreign keys.”
+
+
+
+
+items = db.relationship('OrderItems', backref='order', lazy=True)
+This creates a connection between Orders and OrderItems
+“One Order can have many OrderItems”
+One Order → Many OrderItems
+
+
+URLs must be treated as strings
+
+
+
+
+👉 <unique_id> works only inside Flask route definitions
+👉 It does NOT work in normal Python strings / API calls
+@app.route("/unique_id/<int:unique_id>")
+
+
+
