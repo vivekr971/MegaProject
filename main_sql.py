@@ -84,6 +84,41 @@ def get_customer(unique_id):
 
 
 
+@app.route("/delete_id/<int:unique_id>", methods=["DELETE"])
+def del_customer(unique_id):
+     customer3 = Customer.query.filter_by(unique_id=unique_id).first()
+     
+     if customer3:
+         db.session.delete(customer3)
+         db.session.commit()
+         
+         return jsonify({"message": "Customer deleted successfully"})
+         
+     else:
+          return jsonify({"message": "Customer not found"}), 404
+     
+
+     
+@app.route("/update_id/<int:unique_id>", methods=["PUT"])
+def update_customer(unique_id):
+     customer4 = Customer.query.filter_by(unique_id=unique_id).first()
+     
+     if not customer4:
+        return {"message": "Not found"}, 404
+
+     data = request.get_json()
+
+     customer4.name = data.get('name', customer4.name)
+
+     db.session.commit()
+
+     return {"message": "Updated"}, 200
+         
+         
+         
+       
+
+
 
 if __name__ == "__main__":
     with app.app_context():
